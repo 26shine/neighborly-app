@@ -1,3 +1,4 @@
+import os
 import azure.functions as func
 import pymongo
 import json
@@ -10,9 +11,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     if id:
         try:
-            url = "localhost"  # TODO: Update with appropriate MongoDB connection information
+            url = os.environ["mongoDBConnection"]
             client = pymongo.MongoClient(url)
-            database = client['azure']
+            database = client['neighborly']
             collection = database['posts']
 
             query = {'_id': ObjectId(id)}

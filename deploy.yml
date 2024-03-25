@@ -1,0 +1,29 @@
+data:
+  AzureWebJobsStorage: VXNlRGV2ZWxvcG1lbnRTdG9yYWdlPXRydWU=
+  FUNCTIONS_WORKER_RUNTIME: cHl0aG9u
+  AzureWebJobsFeatureFlags: RW5hYmxlV29ya2VySW5kZXhpbmc=
+apiVersion: v1
+kind: Secret
+metadata:
+  name: apis
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apis
+  template:
+    metadata:
+      labels:
+        app: apis
+    spec:
+      containers:
+      - name: apis
+        image: tienvq.azurecr.io/apis:v1
+        ports:
+        - containerPort: 80
